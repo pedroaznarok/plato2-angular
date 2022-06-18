@@ -1,0 +1,56 @@
+<h1 >Platos</h1>
+<hr>
+<div class="row">
+  <div class="col-md-12 text-right">
+  <!-- Al estar dentro de un router-outlet hay que añadir un "/" para que salga fuera y acceda
+        correctamente a la ruta que queremos ir
+  -->
+    <button [routerLink]="['/admin', 'nuevo']"
+        type="button" class="btn btn-outline-primary" type="button" name="button">
+      Nuevo plato
+    </button>
+  </div>
+</div>
+<div class="row animated fadeIn">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table width="100%" class="table table-sm table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th style="width: 10%;">#</th>
+            <th style="width: 20%;">Nombre</th>
+            <th style="width: 20%;">Precio</th>
+            <th style="width: 20%;">Rubro</th>
+            <th style="width: 40%;" class="text-right">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let plato of platos; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ plato.nombre }}</td>
+              <td>{{ plato.precio }}</td>
+              <td>{{ plato.rubro }}</td>
+              <td class="text-right w120">
+                  <button [routerLink]="['/detallePlato', plato.id]" type="button" 
+                  class="btn btn-outline-primary" type="button" name="button">
+                  <i class="fas fa-edit"></i> Detalle
+                  </button>&nbsp;&nbsp;
+                  <button [routerLink]="['/admin', plato.id]" type="button" 
+                    class="btn btn-outline-success" type="button" name="button">
+                    <i class="fas fa-edit"></i> Editar
+                  </button>&nbsp;&nbsp;
+                  <button (click)="delete(plato.id)" type="button" class="btn btn-outline-danger" type="button" name="button">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                  </button>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+      <div *ngIf="(platos | keys).length ===0" 
+            class="alert alert-info" role="alert">
+        <strong>No hay</strong> registros que mostrar
+      </div>
+    </div>
+  </div>
+</div>
+

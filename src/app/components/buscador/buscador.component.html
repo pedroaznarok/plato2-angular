@@ -1,0 +1,9 @@
+<h1>Buscando: {{termino}}  </h1>
+
+<div class="card-deck">
+  <app-item-plato (platoSeleccionado)="verPlato($event)" 
+  *ngFor="let platoLocal of platosBusqueda; let i = index" [platoAux]="platoLocal" 
+  [index]="platoLocal.id">
+  </app-item-plato>
+</div>
+

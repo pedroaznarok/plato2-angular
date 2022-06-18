@@ -1,0 +1,27 @@
+<h1>{{plato.nombre | uppercase}}</h1>
+<hr>
+<div class="row">
+    <div class="col-md-4" style="text-align: center">
+        <img src="{{plato.urlImagenPath}}" style="max-width: 300px;" class="img-fluid" [alt]="plato.nombre">
+        <br><br>
+        <a [routerLink]="['/platos']" class="btn btn-outline-danger btn-block">Regresar</a>
+    </div>
+    <div class="col-md-8">
+        <h3 style="color: crimson">{{plato.nombre}}</h3>
+        <hr>
+        <p>{{plato.nombre}}</p>
+        <p><b>Precio:</b> ${{plato.precio}}</p>
+        <p><b>Rubro:</b> {{plato.rubro}}</p>
+        <p><b>Ingredientes:</b>
+            <li *ngFor="let ingredienteAux of plato.ingredientes; let i = index">
+                {{ ingredienteAux.nombre }} {{ ingredienteAux.cantidad }} {{ ingredienteAux.unidadMedida }}
+            </li>
+        </p>
+        <div>
+            <span *ngIf="plato.rubro == 'Bebidas'" style="color:red; font-weight: bold;">
+                Es Bebida
+            </span>
+        </div>
+    </div>
+</div>
+

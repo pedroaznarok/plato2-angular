@@ -1,0 +1,8 @@
+<h1>Nuestros Platos</h1>
+
+<div class="card-deck">
+  <app-item-plato ngClass="anchoItem" (platoSeleccionado)="verPlato($event)"
+  *ngFor="let platoLocal of platosArr; let i = index" [platoAux]="platoLocal"
+  [index]="platoLocal.id">
+  </app-item-plato>
+</div>

@@ -1,0 +1,32 @@
+<h3>Plato <small>{{ plato.nombre }}</small></h3>
+<button class="btn btn-outline-danger" [routerLink]="['/lista']">Regresar</button>
+<button class="btn btn-outline-success" (click)="addNew(forma)">Nuevo plato</button>
+<hr>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12">
+    <form (ngSubmit)="save()" #forma="ngForm">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" [(ngModel)]="plato.nombre" name="nombre" class="form-control" required minlength="4" placeholder="Plato">
+      </div>
+      <div class="form-group">
+          <label for="precio">Precio</label>
+          <input id="precio" type="number" [(ngModel)]="plato.precio" name="precio" class="form-control" required minlength="4" placeholder="Precio">
+      </div>
+      <div class="form-group">
+        <label for="rubro">Rubro</label>
+        <input id="rubro" [(ngModel)]="plato.rubro" name="rubro" class="form-control" required minlength="4" placeholder="Rubro">
+      </div>
+      <div class="form-group">
+        <label for="imagenPath">Imagen</label>
+        <input id="imagenPath" [(ngModel)]="plato.imagenPath" name="imagenPath" class="form-control" required minlength="4" placeholder="Imagen">
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-outline-primary" (click)="save()">Guardar Plato PARAMS</button>
+        <button type="button" class="btn btn-outline-success" (click)="guardarPOST()">Guardar Plato POST</button>
+        <span style="text-align: right; width: 500; color: blue; font-weight: bold">&nbsp;&nbsp;&nbsp; {{ resultadoOperacion }}</span>
+      </div>
+    </form>
+  </div>
+</div>
