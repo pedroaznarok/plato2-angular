@@ -48,40 +48,10 @@ export class DeliveryService {
     return this.http.get("http://localhost:8084/api/buscar/" + termino).pipe(
       map( platosSearch => platosSearch));
   }
-
-  platoAdminUrl:string = "http://localhost:8084/RestoServlet";
-  newPlato( platoNuevo: Plato) {
-    console.log(this.platoAdminUrl);
-    return this.http.post<Plato>( this.platoAdminUrl, null, {params: new HttpParams().set("action", "insertar").set("id", "0")
-    .set("nombre", platoNuevo.nombre).set("imagenPath", platoNuevo.imagenPath).set("precio", String(platoNuevo.precio)).set("rubro", platoNuevo.rubro)
-    }).pipe(map( nuevoPlato => {
-            console.log(nuevoPlato.nombre);
-            return nuevoPlato;
-          }));
+  
+   async updatePlato( platoUpdate: Plato) {
+    await this.guardarPOST(platoUpdate);
   }
-
-
-
-   updatePlato( platoUpdate: Plato) {
-      console.log(this.platoAdminUrl);
-      return this.http.post<Plato>( this.platoAdminUrl, null, {params: new HttpParams().set("action", "actualizar").set("id", String(platoUpdate.id))
-      .set("nombre", platoUpdate.nombre).set("imagenPath", platoUpdate.imagenPath).set("precio", String(platoUpdate.precio)).set("rubro", platoUpdate.rubro)
-      }).pipe(map( res => {
-              console.log(res.nombre);
-              return res;
-            }));
-    }
-
-    deletePlato(idPlato: string){
-      console.log(this.platoAdminUrl);
-      return this.http.post( this.platoAdminUrl, null, {params: new HttpParams().set("action", "eliminar").set("id", idPlato)})
-            .pipe(
-            map( res => {
-              console.log(res);
-              return res;
-            }));
-    }
-
 
     async deletePlatoFetch(idPlato: string){
       let urlServer = 'http://localhost:8084/api/delete/'+idPlato;
@@ -103,11 +73,13 @@ export class DeliveryService {
         urlServer = 'http://localhost:8084/api/update';
         method = "PUT";
       }
+      console.log(plato.id + " " + method)
       await fetch(urlServer, {
         "method": method,
         "body": JSON.stringify(plato),
         "headers": {
-        "Content-Type": 'application/json'
+        "Content-Type": 'application/json',
+        'Access-Control-Allow-Origin':'*'
         }
       });
 

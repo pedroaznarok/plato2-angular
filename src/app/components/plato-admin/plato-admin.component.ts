@@ -46,35 +46,18 @@ export class PlatoAdminComponent implements OnInit {
   }
 
   save() {
-    if(!this.validarSiNumero(String(this.plato.precio))){
+    console.log("toy")
+    if(!this.validarSiNumero(String(this.plato.id))){
+      console.log(this.plato.id)
       this.resultadoOperacion = ("Ingrese un numero para el precio.");
       return;
     }
-    if ( this.idplato === 'nuevo') {
+    if (this.idplato === 'nuevo') {
       console.log('nuevo');
-      this.servicioDelivery.newPlato(this.plato)
-        .subscribe( data => {
-          if(data && data.id){
-            this.resultadoOperacion = "Operación finalizada con exito";
-            this.router.navigate(['/lista']);
-          }else{
-            this.resultadoOperacion = "Error en la operación, verifique los datos";
-          }
-        },
-        error => console.error(error));
+      this.guardarPOST();
     } else {
       console.log(`Update ${ this.idplato }`);
-      this.servicioDelivery.updatePlato(this.plato)
-        .subscribe( data => {
-          if(data && data.id){
-            this.resultadoOperacion = "Operación finalizada con exito";
-            this.router.navigate(['/lista']);
-            console.log(data);
-          }else{
-            this.resultadoOperacion = "Error en la operación, verifique los datos";
-          }
-        },
-        error => console.error(error));
+      this.guardarPOST()
     }
   }
 
@@ -98,9 +81,10 @@ export class PlatoAdminComponent implements OnInit {
   }
 
   async guardarPOST() {
-    this.servicioDelivery.guardarPOST(this.plato);
+    if(this.plato){
+    await this.servicioDelivery.guardarPOST(this.plato);
     this.resultadoOperacion = "Operación finalizada, verifique los datos";
     this.router.navigate(['/lista']);
   }
-
+  }
 }
